@@ -19,28 +19,31 @@ This implementation uses LLVM without opaque pointers---LLVM 15
 (commit e758b77161a7). It has been tested with the O2 optimization
 level. Note that there are a few false negatives observed, mainly
 caused by hacky coding styles, LLVM type issues, and implementation
-bugs. 
+bugs.
 
 
 ## How to use TyPM
 
-### Build LLVM 
-```sh 
-	$ ./build-llvm.sh 
-	# The tested LLVM is of commit e758b77161a7 
+### Build LLVM
+```sh
+	$ ./build-llvm.sh
+	# The tested LLVM is of commit e758b77161a7
 ```
 
-### Build TyPM 
-```sh 
-	# Build the analysis pass 
+### Build TyPM
+```sh
+	# Build the analysis pass
 	# First update Makefile to make sure the path to the built LLVM is correct
-	$ make 
+	$ make
 	# Now, you can find the executable, `kanalyzer`, in `build/lib/`
 ```
- 
-### Prepare LLVM bitcode files of target programs
 
-Please refer to https://github.com/umnsec/mlta
+### Prepare LLVM bitcode files of OS kernels
+
+* First build IRDumper. Before make, make sure the path to LLVM in
+	`IRDumper/Makefile` is correct. It must be using the same LLVM used
+	for building TypeDive
+* See `irgen.sh` for details on how to generate bitcode/IR
 
 ### Run TyPM
 ```sh
@@ -53,7 +56,7 @@ Please refer to https://github.com/umnsec/mlta
 	# Options
 	$ ./build/lib/kalalyzer
 	# Note that, by default, the function-type matching is used as
-	# the base, not MLTA 
+	# the base, not MLTA
 ```
 
 ### Configurations
